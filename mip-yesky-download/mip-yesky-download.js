@@ -5,57 +5,21 @@
 * @version 1.0.0
 */
 define(function (require) {
-    var $ = require('zepto');
-    var isShowStar = false;
+    var $ = require('jquery');
     var customElem = require('customElement').create();
     customElem.prototype.build = function () {
-        var starBox = $('.xz_select');
-        var starbg = $('.bg_black');
-        // 控制弹层开启
-
-        // 根据请求更换不同星座数据
-        var aid = getUrl('aid');
-        $.ajax({
-            url: 'http://cache.xzw.com/mip/data.js',
-            dataType: 'jsonp',
-            data: {'id': aid},
-            jsonp: 'callback',
-            jsonpCallback: 'call_data',
-            success: function (data) {
-                var starData = data.data;
-                var items = starData[aid];
-                $('.top_part').html(items.toppart);
-                $('.peidui').html(items.peidui);
-                $('.libox').html(items.bottompart);
-            },
-            timeout: 3000
-        });
-       // 获取今日运势内容
-        $.ajax({
-            url: 'http://m.xzw.com/fortune/ajax/back/' + myDates() + '/' + getUrl('aid') + '/' + getUrl('aid') + '.html',
-            dataType: 'jsonp',
-            jsonp: 'callback',
-            jsonpCallback: 'call_fortune',
-            success: function (data) {
-                $('.fortune em em').width(data.s);
-                $('.fortune p a').html(data.v);
-            },
-            timeout: 3000
-        });
-       // 获取url参数
-        function getUrl(name) {
-            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) {
-                return unescape(r[2]);
-            }
-            return null;
-        }
-       // 获取时间
-        function myDates() {
-            var date = new Date();
-            var s = '' + date.getFullYear() + (date.getMonth() + 1) + date.getDate();
-            return s;
+        var ar = document.createElement('script');
+        ar.src = 'http://m.yesky.com/TLimages2009/yesky/js/jQuery.md5.js';
+        ar.type = 'text/javascript';
+        document.body.appendChild(ar);
+        ar.onload = function () {
+            $("mip-myesky-down").find('.down').click(function () {
+                var filepath = $(this).attr("data-url");
+                var hexTime = new Number(Math.floor(new Date().getTime() / 1000)).toString(16);
+                var md5 = jQuery.md5("yesky_download" + filepath + hexTime);
+                var newlink = "http://cdn1.mydown.yesky.com/" + hexTime + "/" + md5 + filepath;
+                $(this).attr('href',newlink);
+            });
         }
     };
     return customElem;
