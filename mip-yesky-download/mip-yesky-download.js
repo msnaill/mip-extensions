@@ -13,11 +13,11 @@ define(function (require) {
         ar.type = 'text/javascript';
         document.body.appendChild(ar);
         ar.onload = function () {
-            $("mip-myesky-down").find('.down').click(function () {
-                var filepath = $(this).attr("data-url");
+            $('mip-myesky-down').find('.down').click(function () {
+                var filepath = $(this).attr('data-url');
                 var hexTime = new Number(Math.floor(new Date().getTime() / 1000)).toString(16);
-                var md5 = jQuery.md5("yesky_download" + filepath + hexTime);
-                var newlink = "http://cdn1.mydown.yesky.com/" + hexTime + "/" + md5 + filepath;
+                var md5 = jQuery.md5('yesky_download'+ filepath + hexTime);
+                var newlink = 'http://cdn1.mydown.yesky.com/' + hexTime + '/' + md5 + filepath;
                 $(this).attr('href',newlink);
             });
         }
