@@ -1,12 +1,10 @@
 {
     "name": "mip-yesky-download",
     "version": "1.0.0",
+    "description":"ÏÂÔØÁ´½Ó¼ÓÃÜ",
     "author": {
         "name": "msnaill",
         "email": "576604471@qq.com",
         "url": "http://m.yesky.com/"
-    },
-    "engines": {
-        "mip": ">=1.1.0"
     }
 }
